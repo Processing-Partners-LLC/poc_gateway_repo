@@ -1,0 +1,19 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to first target instance
+      run: sudo /home/runner/deployment-scripts/deploy.sh admin 192.168.0.23 ~/.ssh/id_rsa_new_target
+
+    - name: Deploy to second target instance
+      run: sudo /home/runner/deployment-scripts/deploy.sh admin 192.168.0.20 ~/.ssh/id_rsa_new_target
